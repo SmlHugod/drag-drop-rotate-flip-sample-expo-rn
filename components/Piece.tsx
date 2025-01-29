@@ -1,11 +1,11 @@
 import { View } from "react-native";
 import { cube_colors } from "../assets/cube_colors";
-import { GRID_SIZE } from "../hooks/useGridSnap";
+import { CUBE_SIZE } from "../constants/constants";
 import Cube from "./Cube";
 
 export type PieceMatrix = readonly (readonly number[])[];
 
-type PieceProps = {
+export type PieceProps = {
   matrix: PieceMatrix;
   color?: string;
   shadowColor?: string;
@@ -40,8 +40,8 @@ export const Piece = ({
             <View
               key={`${rowIndex}-${cellIndex}`}
               style={{
-                width: GRID_SIZE,
-                height: GRID_SIZE,
+                width: CUBE_SIZE,
+                height: CUBE_SIZE,
               }}
             >
               {cell === 1 && <Cube color={color} shadowColor={shadowColor} />}

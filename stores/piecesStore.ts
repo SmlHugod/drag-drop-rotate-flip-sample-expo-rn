@@ -36,12 +36,14 @@ export const usePiecesStore = create<InitialState & Actions>((set) => ({
       ],
       currentMaxZIndex: state.currentMaxZIndex + 1,
     })),
+
   updatePiecePosition: (id, position) =>
     set((state) => ({
       pieces: state.pieces.map((piece) =>
         piece.id === id ? { ...piece, position } : piece
       ),
     })),
+
   bringToFront: (id) =>
     set((state) => ({
       pieces: state.pieces.map((piece) =>

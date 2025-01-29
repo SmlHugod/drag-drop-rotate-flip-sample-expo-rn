@@ -2,24 +2,20 @@ import {
   DraggableRotatable,
   DraggableRotatableProps,
 } from "./DraggableRotatable";
-import { Piece, PieceMatrix } from "./Piece";
+import { Piece, PieceProps } from "./Piece";
 
 type DraggablePieceProps = {
-  matrix: PieceMatrix;
-  color?: string;
-  shadowColor?: string;
+  pieceProps?: PieceProps;
   draggableProps?: Omit<DraggableRotatableProps, "children">;
 };
 
 export const DraggablePiece = ({
-  matrix,
-  color,
-  shadowColor,
+  pieceProps,
   draggableProps,
 }: DraggablePieceProps) => {
   return (
     <DraggableRotatable {...draggableProps}>
-      <Piece matrix={matrix} color={color} shadowColor={shadowColor} />
+      <Piece {...pieceProps} />
     </DraggableRotatable>
   );
 };

@@ -43,6 +43,7 @@ export default function App() {
   }, []);
 
   return (
+    //<ZoomableGrid />
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         {gridLines.map((line) => (

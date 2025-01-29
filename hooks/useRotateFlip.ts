@@ -1,5 +1,5 @@
 import { useSharedValue } from "react-native-reanimated";
-import { GRID_SIZE } from "./useGridSnap";
+import { CUBE_SIZE } from "../constants/constants";
 
 export const useRotateFlip = (
   onRotate?: (rotation: number) => void,
@@ -24,8 +24,8 @@ export const useRotateFlip = (
     const needsOffset = width !== height;
 
     offset.value = {
-      x: isRotated && needsOffset ? ((width - height) * GRID_SIZE) / 2 : 0,
-      y: isRotated && needsOffset ? ((width - height) * GRID_SIZE) / 2 : 0,
+      x: isRotated && needsOffset ? ((width - height) * CUBE_SIZE) / 2 : 0,
+      y: isRotated && needsOffset ? ((width - height) * CUBE_SIZE) / 2 : 0,
     };
     onRotate?.(newRotation);
   };
