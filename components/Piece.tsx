@@ -3,7 +3,7 @@ import { cube_colors } from "../assets/cube_colors";
 import { GRID_SIZE } from "../hooks/useGridSnap";
 import Cube from "./Cube";
 
-export type PieceMatrix = (0 | 1)[][];
+export type PieceMatrix = readonly (readonly number[])[];
 
 type PieceProps = {
   matrix: PieceMatrix;

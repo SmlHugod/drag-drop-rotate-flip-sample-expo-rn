@@ -1,22 +1,27 @@
-# <a id="top"> 🧩 UBONGO - Frontend Project
+# <a id="top"> 🎯 DRAG & DROP - Frontend Example
 
-Bienvenue sur le dépôt **Frontend** du projet **Ubongo**. Ce projet est une adaptation multijoueur du jeu de société **Ubongo**, combinant réflexion et rapidité, développé avec les technologies modernes du web et du mobile.
+Bienvenue sur ce dépôt **Frontend** d'exemple qui illustre l'implémentation du **Drag & Drop** en React Native. Ce projet démontre différentes approches de drag & drop, optimisées pour les performances sur mobile et web.
 
 ## 📚 Sommaire
-- [Description du projet](#description)
-- [Fonctionnalités](#fonctionnalites)
-- [Technologies utilisées](#technologies)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributeurs](#contributeurs)
+- [ 🎯 DRAG \& DROP - Frontend Example](#--drag--drop---frontend-example)
+  - [📚 Sommaire](#-sommaire)
+  - [ 📝 Description du projet](#--description-du-projet)
+  - [ 🚀 Fonctionnalités](#--fonctionnalités)
+  - [ 🛠️ Technologies utilisées](#-️-technologies-utilisées)
+  - [ ⚙️ Installation](#-️-installation)
+  - [ 📱 Usage](#--usage)
+  - [ 👥 Contributeurs](#--contributeurs)
 
 ---
 
 ## <a id="description"> 📝 Description du projet
 
-**Ubongo** est un jeu de société stimulant qui combine réflexion et rapidité. Les joueurs doivent résoudre des casse-têtes géométriques en un temps limité. Chaque joueur reçoit une grille individuelle et des pièces similaires à des formes de Tetris, qu'ils doivent imbriquer pour remplir la grille le plus rapidement possible.
+Ce projet est un exemple complet d'implémentation du **drag & drop** en React Native, utilisant différentes approches selon les besoins :
+- Gesture Handler pour une expérience native fluide
+- React DnD pour la version web
+- Animations optimisées avec Reanimated
 
-Le projet vise à adapter ce jeu en une **application multijoueur cross-platform** pour le web, iOS et Android, avec des modes de jeu 2D et 3D.
+Le but est de fournir une base solide pour implémenter le drag & drop dans vos propres applications cross-platform.
 
 [🔝 Retour en haut](#top)
 
@@ -24,23 +29,23 @@ Le projet vise à adapter ce jeu en une **application multijoueur cross-platform
 
 ## <a id="fonctionnalites"> 🚀 Fonctionnalités
 
-Voici les fonctionnalités prévues pour le projet :
+Voici les fonctionnalités démontrées :
 
-- Multijoueur crossplatform (web, iOS, Android)
-- Algorithme de génération de grilles générique
-- Jeu en 2D et en 3D
-- Modes de difficulté (facile/difficile)
-- Set de formes : Ubongo et Pentomino
-- Indices progressifs :
-  - Niveau 1 : Une case révélée
-  - Niveau 2 : Plusieurs cases révélées
-  - Niveau 3 : Toute la pièce révélée
-- Modes de jeu :
-  - Classique : Chacun sa grille
-  - Challenge : Tous la même grille
-- Langues disponibles : Français, Anglais
-- Mode daltonien
-- Déploiement potentiel sur le site web de Monsieur Lafourcade
+- Drag & Drop cross-platform (web, iOS, Android)
+- Différents types de zones de drop :
+  - Grilles
+  - Listes
+  - Zones libres
+- Animations fluides
+- Retour haptique sur mobile
+- Indicateurs visuels de drop zones
+- Gestion des collisions
+- Modes de démonstration :
+  - Simple : déplacement basique
+  - Avancé : rotation et redimensionnement
+  - Grille : snap to grid
+- Support du mode tablette
+- Performances optimisées
 
 [🔝 Retour en haut](#top)
 
@@ -48,14 +53,14 @@ Voici les fonctionnalités prévues pour le projet :
 
 ## <a id="technologies"> 🛠️ Technologies utilisées
 
-Ce projet frontend est construit avec les technologies suivantes :
+Ce projet utilise les technologies suivantes :
 
 - ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
 - ![Zustand](https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=react&logoColor=white)  
 - ![Expo](https://img.shields.io/badge/Expo-1C1E24?style=for-the-badge&logo=expo&logoColor=white)  
-- ![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)
+- ![Reanimated](https://img.shields.io/badge/Reanimated-FF4154?style=for-the-badge&logo=react&logoColor=white)
 
-Backend en **Node.js** avec **Websockets**, BDD optionnelle en **Supabase/Postgres** pour les statistiques et comptes (à venir).
+Avec un focus particulier sur react-native-gesture-handler et react-native-reanimated pour des performances optimales.
 
 [🔝 Retour en haut](#top)
 
@@ -67,13 +72,12 @@ Pour installer et exécuter le projet en local :
 
 1. Clonez ce dépôt :
 ```bash
-git clone https://codefirst.iut.uca.fr/Bongomino/Frontend.git
+git clone https://github.com/SmlHugod/drag-drop-rotate-flip-sample-expo-rn.git
 ```
 
 2. Accédez au répertoire du projet :
 ```bash
-cd Frontend
-cd bongomino
+cd drag-drop-rotate-flip-sample-expo-rn
 ```
 
 3. Installez les dépendances :
@@ -84,21 +88,13 @@ cd bongomino
    npm install
    ```
 
-4. Exécutez l'application avec Expo :
-  ```bash
-   npx expo start
-   ```
-  Ou si vous êtes à l'IUT :
-  ```bash
-   npx expo start --tunnel
-   ```
 [🔝 Retour en haut](#top)
 
 ## <a id="usage"> 📱 Usage
 
 1. Exécutez l'application en utilisant la commande :
    ```bash
-   expo start
+   npx expo start
    ```
 
 2. Scannez le QR code fourni par Expo avec votre appareil mobile pour tester l'application sur iOS ou Android, ou bien utilisez un émulateur.
@@ -110,12 +106,6 @@ cd bongomino
 
 ## <a id="contributeurs"> 👥 Contributeurs
 
-- **Maël Daim**
-- **Félix Courbon**
-- **Guillaume Rey**
 - **Hugo Ody**
-- **Erwan Ménager**
-
-Projet supervisé par **Monsieur Lafourcade**.
 
 [🔝 Retour en haut](#top)
