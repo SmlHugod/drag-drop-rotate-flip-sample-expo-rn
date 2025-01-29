@@ -11,23 +11,31 @@ export const PiecesManager: React.FC<PiecesManagerProps> = ({ snapToGrid }) => {
 
   return (
     <>
-      {pieces.map((piece) => (
+      {pieces.map((piece, index) => (
         <DraggablePiece
-          key={piece.id}
+          key={index}
           matrix={piece.matrix}
-          initialX={piece.position.x}
-          initialY={piece.position.y}
           color={piece.color}
           shadowColor={piece.shadowColor}
-          style={{ zIndex: piece.zIndex }}
-          onPositionChange={(pos) => {
-            bringToFront(piece.id);
-            const snappedPosition = {
-              x: snapToGrid(pos.x),
-              y: snapToGrid(pos.y),
-            };
-            updatePiecePosition(piece.id, snappedPosition);
-            return snappedPosition;
+          draggableProps={{
+            initialX: piece.position.x,
+            initialY: piece.position.y,
+            style: { zIndex: piece.zIndex },
+            onPositionChange: (pos) => {
+              bringToFront(piece.id);
+              const snappedPosition = {
+                x: snapToGrid(pos.x),
+                y: snapToGrid(pos.y),
+              };
+              updatePiecePosition(piece.id, snappedPosition);
+              return snappedPosition;
+            },
+            onRotate: (rotation) => {
+              bringToFront(piece.id);
+            },
+            onFlip: () => {
+              bringToFront(piece.id);
+            },
           }}
         />
       ))}

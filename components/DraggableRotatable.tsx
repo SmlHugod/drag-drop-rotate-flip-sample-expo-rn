@@ -8,7 +8,7 @@ import Animated, {
 import { DefaultStyle } from "react-native-reanimated/lib/typescript/hook/commonTypes";
 import { GRID_SIZE } from "../hooks/useGridSnap";
 
-type DraggableRotatableProps = {
+export type DraggableRotatableProps = {
   initialX: number;
   initialY: number;
   onPositionChange?: (position: { x: number; y: number }) => {
@@ -16,8 +16,9 @@ type DraggableRotatableProps = {
     y: number;
   };
   onRotate?: (rotation: number) => void;
-  children: React.ReactElement;
+  onFlip?: () => void;
   style?: ViewStyle;
+  children: React.ReactElement;
 };
 
 export const DraggableRotatable = ({
@@ -25,6 +26,7 @@ export const DraggableRotatable = ({
   initialY,
   onPositionChange,
   onRotate,
+  onFlip,
   children,
   style,
 }: DraggableRotatableProps) => {
@@ -70,6 +72,7 @@ export const DraggableRotatable = ({
     if (now - lastTapTime.value < 200) {
       // Double tap - Flip
       isFlipped.value = !isFlipped.value;
+      onFlip?.();
     } else {
       setTimeout(() => {
         if (now === lastTapTime.value) {

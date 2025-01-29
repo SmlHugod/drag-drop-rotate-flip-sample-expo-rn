@@ -1,36 +1,24 @@
-import { ViewStyle } from "react-native";
-import { DraggableRotatable } from "./DraggableRotatable";
+import {
+  DraggableRotatable,
+  DraggableRotatableProps,
+} from "./DraggableRotatable";
 import { Piece, PieceMatrix } from "./Piece";
 
 type DraggablePieceProps = {
   matrix: PieceMatrix;
-  initialX: number;
-  initialY: number;
   color?: string;
   shadowColor?: string;
-  onPositionChange?: (position: { x: number; y: number }) => {
-    x: number;
-    y: number;
-  };
-  style?: ViewStyle;
+  draggableProps?: Omit<DraggableRotatableProps, "children">;
 };
 
 export const DraggablePiece = ({
   matrix,
-  initialX,
-  initialY,
   color,
   shadowColor,
-  onPositionChange,
-  style,
+  draggableProps,
 }: DraggablePieceProps) => {
   return (
-    <DraggableRotatable
-      initialX={initialX}
-      initialY={initialY}
-      onPositionChange={onPositionChange}
-      style={style}
-    >
+    <DraggableRotatable {...draggableProps}>
       <Piece matrix={matrix} color={color} shadowColor={shadowColor} />
     </DraggableRotatable>
   );
