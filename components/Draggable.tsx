@@ -1,10 +1,8 @@
 import { StyleSheet } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { DefaultStyle } from "react-native-reanimated/lib/typescript/hook/commonTypes";
+import { useDraggable } from "../hooks/useDraggable";
 
 type DraggableProps = {
   initialX: number;
@@ -22,8 +20,11 @@ export const Draggable = ({
   onPositionChange,
   children,
 }: DraggableProps) => {
-  const position = useSharedValue({ x: initialX, y: initialY });
-  const start = useSharedValue({ x: 0, y: 0 });
+  const { position, handleDragStart, handleDragUpdate } = useDraggable(
+    initialX,
+    initialY,
+    onPositionChange
+  );
 
   const animatedStyle = useAnimatedStyle(
     () =>
@@ -36,21 +37,10 @@ export const Draggable = ({
   );
 
   const gesture = Gesture.Pan()
-    .onStart(() => {
-      start.value = {
-        x: position.value.x,
-        y: position.value.y,
-      };
-    })
-    .onUpdate((event) => {
-      const newPosition = {
-        x: start.value.x + event.translationX,
-        y: start.value.y + event.translationY,
-      };
-      position.value = onPositionChange
-        ? onPositionChange(newPosition)
-        : newPosition;
-    })
+    .onStart(handleDragStart)
+    .onUpdate((event) =>
+      handleDragUpdate(event.translationX, event.translationY)
+    )
     .runOnJS(true);
 
   return (
