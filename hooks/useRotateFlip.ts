@@ -16,12 +16,18 @@ export const useRotateFlip = (
   const lastTapTime = useSharedValue(0);
   const scale = useSharedValue(1);
   const scaleX = useSharedValue(1);
+  const isAnimating = useSharedValue(false);
 
   const handleFlip = () => {
+    if (isAnimating.value) return;
+    isAnimating.value = true;
+
     // Animation sequence
     scale.value = withSequence(
       withSpring(1.1, { duration: 150 }), // Légère augmentation de la taille
-      withSpring(1, { duration: 150 }) // Retour à la taille normale
+      withSpring(1, { duration: 150 }, () => {
+        isAnimating.value = false;
+      }) // Retour à la taille normale
     );
 
     // Flip animation avec scale X négatif
@@ -32,10 +38,15 @@ export const useRotateFlip = (
   };
 
   const handleRotate = (matrix: number[][]) => {
+    if (isAnimating.value) return;
+    isAnimating.value = true;
+
     // Animation sequence pour la rotation
     scale.value = withSequence(
       withSpring(1.1, { duration: 150 }), // Légère augmentation de la taille
-      withSpring(1, { duration: 150 }) // Retour à la taille normale
+      withSpring(1, { duration: 150 }, () => {
+        isAnimating.value = false;
+      }) // Retour à la taille normale
     );
 
     // Animation de rotation rapide
