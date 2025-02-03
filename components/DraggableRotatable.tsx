@@ -28,11 +28,16 @@ export const DraggableRotatable = ({
   children,
   style,
 }: DraggableRotatableProps) => {
-  const { position, handleDragStart, handleDragUpdate } = useDraggable(
-    initialX,
-    initialY,
-    onPositionChange
-  );
+  const {
+    position,
+    previewPosition,
+    isDragging,
+    scale: dragScale,
+    dragRotation,
+    handleDragStart,
+    handleDragUpdate,
+    handleDragEnd,
+  } = useDraggable(initialX, initialY, onPositionChange);
 
   const { rotation, offset, isFlipped, scale, scaleX, handleRotateOrFlip } =
     useRotateFlip(onRotate, onFlip);
@@ -43,8 +48,22 @@ export const DraggableRotatable = ({
         transform: [
           { translateX: position.value.x + offset.value.x },
           { translateY: position.value.y + offset.value.y },
+          { rotate: `${rotation.value + dragRotation.value}deg` },
+          { scale: scale.value * dragScale.value },
+          { scaleX: scaleX.value },
+        ],
+      } as DefaultStyle)
+  );
+
+  const previewStyle = useAnimatedStyle(
+    () =>
+      ({
+        position: "absolute",
+        opacity: isDragging.value ? 0.4 : 0,
+        transform: [
+          { translateX: previewPosition.value.x + offset.value.x },
+          { translateY: previewPosition.value.y + offset.value.y },
           { rotate: `${rotation.value}deg` },
-          { scale: scale.value },
           { scaleX: scaleX.value },
         ],
       } as DefaultStyle)
@@ -55,6 +74,7 @@ export const DraggableRotatable = ({
     .onUpdate((event) =>
       handleDragUpdate(event.translationX, event.translationY)
     )
+    .onEnd(handleDragEnd)
     .runOnJS(true);
 
   const tapGesture = Gesture.Tap()
@@ -65,10 +85,13 @@ export const DraggableRotatable = ({
   const gesture = Gesture.Exclusive(dragGesture, tapGesture);
 
   return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View style={[{ position: "absolute" }, animatedStyle, style]}>
-        {children}
-      </Animated.View>
-    </GestureDetector>
+    <>
+      <Animated.View style={previewStyle}>{children}</Animated.View>
+      <GestureDetector gesture={gesture}>
+        <Animated.View style={[{ position: "absolute" }, animatedStyle, style]}>
+          {children}
+        </Animated.View>
+      </GestureDetector>
+    </>
   );
 };
