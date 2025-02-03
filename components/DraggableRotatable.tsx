@@ -34,10 +34,8 @@ export const DraggableRotatable = ({
     onPositionChange
   );
 
-  const { rotation, offset, isFlipped, handleRotateOrFlip } = useRotateFlip(
-    onRotate,
-    onFlip
-  );
+  const { rotation, offset, isFlipped, scale, scaleX, handleRotateOrFlip } =
+    useRotateFlip(onRotate, onFlip);
 
   const animatedStyle = useAnimatedStyle(
     () =>
@@ -46,7 +44,8 @@ export const DraggableRotatable = ({
           { translateX: position.value.x + offset.value.x },
           { translateY: position.value.y + offset.value.y },
           { rotate: `${rotation.value}deg` },
-          { scaleX: isFlipped.value ? -1 : 1 },
+          { scale: scale.value },
+          { scaleX: scaleX.value },
         ],
       } as DefaultStyle)
   );

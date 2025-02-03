@@ -1,4 +1,9 @@
-import { useSharedValue } from "react-native-reanimated";
+import {
+  useSharedValue,
+  withSequence,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 import { CUBE_SIZE } from "../constants/constants";
 
 export const useRotateFlip = (
@@ -9,15 +14,34 @@ export const useRotateFlip = (
   const offset = useSharedValue({ x: 0, y: 0 });
   const isFlipped = useSharedValue(false);
   const lastTapTime = useSharedValue(0);
+  const scale = useSharedValue(1);
+  const scaleX = useSharedValue(1);
 
   const handleFlip = () => {
+    // Animation sequence
+    scale.value = withSequence(
+      withSpring(1.1, { duration: 150 }), // Légère augmentation de la taille
+      withSpring(1, { duration: 150 }) // Retour à la taille normale
+    );
+
+    // Flip animation avec scale X négatif
+    scaleX.value = withTiming(!isFlipped.value ? 1 : -1, { duration: 300 });
+
     isFlipped.value = !isFlipped.value;
     onFlip?.();
   };
 
   const handleRotate = (matrix: number[][]) => {
+    // Animation sequence pour la rotation
+    scale.value = withSequence(
+      withSpring(1.1, { duration: 150 }), // Légère augmentation de la taille
+      withSpring(1, { duration: 150 }) // Retour à la taille normale
+    );
+
+    // Animation de rotation rapide
     const newRotation = rotation.value + 90;
-    rotation.value = newRotation;
+    rotation.value = withTiming(newRotation, { duration: 300 });
+
     const isRotated = newRotation % 180 !== 0;
     const width = matrix[0].length;
     const height = matrix.length;
@@ -57,6 +81,8 @@ export const useRotateFlip = (
     rotation,
     offset,
     isFlipped,
+    scale,
+    scaleX,
     handleRotateOrFlip,
     handleRotate,
     handleFlip,
