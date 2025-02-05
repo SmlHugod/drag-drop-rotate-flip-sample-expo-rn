@@ -16,8 +16,8 @@ export const PiecesManager: React.FC<PiecesManagerProps> = ({ snapToGrid }) => {
           key={index}
           pieceProps={{
             matrix: piece.matrix,
-            color: piece.color,
-            shadowColor: piece.shadowColor,
+            color: piece.color.main,
+            shadowColor: piece.color.shadow,
           }}
           draggableProps={{
             initialX: piece.position.x,

@@ -1,23 +1,15 @@
 import { create } from "zustand";
-
-export type PieceData = {
-  id: string;
-  matrix: readonly (readonly number[])[];
-  position: { x: number; y: number };
-  color?: string;
-  shadowColor?: string;
-  zIndex: number;
-};
+import { Piece } from "../models/Piece";
 
 type InitialState = {
-  pieces: PieceData[];
+  pieces: Piece[];
   currentMaxZIndex: number;
 };
 
 type Actions = {
-  addPiece: (piece: Omit<PieceData, "zIndex">) => void;
-  updatePiecePosition: (id: string, position: { x: number; y: number }) => void;
-  bringToFront: (id: string) => void;
+  addPiece: (piece: Omit<Piece, "zIndex">) => void;
+  updatePiecePosition: (id: number, position: { x: number; y: number }) => void;
+  bringToFront: (id: number) => void;
 };
 
 const initialState: InitialState = {

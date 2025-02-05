@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import { cube_colors } from "../assets/cube_colors";
 import { CUBE_SIZE } from "../constants/constants";
 import Cube from "./Cube";
 
@@ -7,31 +6,11 @@ export type PieceMatrix = readonly (readonly number[])[];
 
 export type PieceProps = {
   matrix: PieceMatrix;
-  color?: string;
-  shadowColor?: string;
+  color: string;
+  shadowColor: string;
 };
 
-export const PIECE_SHAPES = {
-  L: [
-    [1, 0],
-    [1, 0],
-    [1, 1],
-  ],
-  T: [
-    [0, 1],
-    [1, 1],
-    [0, 1],
-  ],
-  "4B": [[1], [1], [1], [1]],
-  "3B": [[1], [1], [1]],
-  "2B": [[1], [1]],
-} as const;
-
-export const Piece = ({
-  matrix,
-  color = cube_colors.blue,
-  shadowColor = cube_colors.blue_shadow,
-}: PieceProps) => {
+export const Piece = ({ matrix, color, shadowColor }: PieceProps) => {
   return (
     <View style={{ flexDirection: "column" }}>
       {matrix.map((row, rowIndex) => (
