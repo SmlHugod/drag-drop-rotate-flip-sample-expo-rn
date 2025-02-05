@@ -5,7 +5,6 @@ import { PiecesManager } from "./components/PiecesManager";
 import { PieceFactory } from "./factories/PieceFactory";
 import { useGridSnap } from "./hooks/useGridSnap";
 import { usePiecesStore } from "./stores/piecesStore";
-import { normalize } from "./utils/utils";
 
 export default function App() {
   const width = Dimensions.get("window").width;
@@ -14,12 +13,10 @@ export default function App() {
   const addPiece = usePiecesStore((state) => state.addPiece);
 
   useEffect(() => {
-    PieceFactory.getAllPieces().forEach((piece) => {
-      addPiece({
-        ...piece,
-        position: { x: snapToGrid(width / 4), y: snapToGrid(height / 4) },
-      });
-    });
+    PieceFactory.getAllPieces({
+      x: snapToGrid(width / 4),
+      y: snapToGrid(height / 4),
+    }).forEach(addPiece);
   }, []);
 
   return (
@@ -45,7 +42,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: normalize(40),
     flex: 1,
     backgroundColor: "grey",
   },
