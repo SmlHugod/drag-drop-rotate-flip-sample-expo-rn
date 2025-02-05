@@ -9,13 +9,17 @@ export const useDraggable = (
 ) => {
   const position = useSharedValue({ x: initialX, y: initialY });
   const previewPosition = useSharedValue({ x: initialX, y: initialY });
-  const start = useSharedValue({ x: 0, y: 0 });
+  const start = useSharedValue({ x: initialX, y: initialY });
   const scale = useSharedValue(1);
   const dragRotation = useSharedValue(0);
   const isDragging = useSharedValue(false);
 
   const handleDragStart = () => {
     start.value = {
+      x: position.value.x,
+      y: position.value.y,
+    };
+    previewPosition.value = {
       x: position.value.x,
       y: position.value.y,
     };
@@ -34,11 +38,16 @@ export const useDraggable = (
       x: start.value.x + translationX,
       y: start.value.y + translationY,
     };
+
+    // Mettons à jour la position principale d'abord
     position.value = newPosition;
 
-    // Met à jour la position du preview avec le snap
+    // Puis mettons à jour la preview si nécessaire
     if (onPositionChange) {
-      previewPosition.value = onPositionChange(newPosition);
+      const snappedPosition = onPositionChange(newPosition);
+      previewPosition.value = snappedPosition;
+    } else {
+      previewPosition.value = newPosition;
     }
   };
 
