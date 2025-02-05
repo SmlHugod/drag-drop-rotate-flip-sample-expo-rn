@@ -30,7 +30,7 @@ export const useRotateFlip = (
     );
 
     // Flip animation avec scale X négatif
-    scaleX.value = withTiming(!isFlipped.value ? 1 : -1, { duration: 300 });
+    scaleX.value = withTiming(isFlipped.value ? 1 : -1, { duration: 300 });
 
     isFlipped.value = !isFlipped.value;
     onFlip?.();
