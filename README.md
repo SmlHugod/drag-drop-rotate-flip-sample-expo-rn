@@ -18,8 +18,7 @@ Bienvenue sur ce dépôt **Frontend** d'exemple qui illustre l'implémentation d
 
 Ce projet est un exemple complet d'implémentation du **drag & drop** en React Native, utilisant différentes approches selon les besoins :
 - Gesture Handler pour une expérience native fluide
-- React DnD pour la version web
-- Animations optimisées avec Reanimated
+- Animations avec Reanimated
 
 Le but est de fournir une base solide pour implémenter le drag & drop dans vos propres applications cross-platform.
 
