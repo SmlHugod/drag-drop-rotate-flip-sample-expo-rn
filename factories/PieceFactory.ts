@@ -1,7 +1,10 @@
-import { PIECE_COLORS } from "../assets/cube_colors";
+import { PIECE_COLORS } from "../assets/piece_colors";
 import { Piece } from "../models/Piece";
 
-export type PieceDefinition = Omit<Piece, "position" | "zIndex">;
+export type PieceDefinition = Omit<
+  Piece,
+  "position" | "zIndex" | "rotation" | "isFlipped"
+>;
 
 export const PIECES: Record<string, PieceDefinition> = {
   "2B": {
@@ -117,7 +120,14 @@ export class PieceFactory {
     position: { x: number; y: number }
   ): Omit<Piece, "zIndex"> | undefined {
     const piece = Object.values(PIECES).find((piece) => piece.id === pieceId);
-    return piece ? { ...piece, position } : undefined;
+    return piece
+      ? {
+          ...piece,
+          position,
+          rotation: 0,
+          isFlipped: false,
+        }
+      : undefined;
   }
 
   static createPieceByName(
@@ -125,13 +135,25 @@ export class PieceFactory {
     position: { x: number; y: number }
   ): Omit<Piece, "zIndex"> | undefined {
     const piece = PIECES[pieceName];
-    return piece ? { ...piece, position } : undefined;
+    return piece
+      ? {
+          ...piece,
+          position,
+          rotation: 0,
+          isFlipped: false,
+        }
+      : undefined;
   }
 
   static getAllPieces(position: {
     x: number;
     y: number;
   }): Omit<Piece, "zIndex">[] {
-    return Object.values(PIECES).map((piece) => ({ ...piece, position }));
+    return Object.values(PIECES).map((piece) => ({
+      ...piece,
+      position,
+      rotation: 0,
+      isFlipped: false,
+    }));
   }
 }

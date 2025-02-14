@@ -1,4 +1,4 @@
-import { PieceColor } from "../assets/cube_colors";
+import { PieceColor } from "../assets/piece_colors";
 
 export type PieceMatrix = readonly (readonly number[])[];
 
@@ -9,4 +9,6 @@ export type Piece = {
   position: { x: number; y: number };
   color: PieceColor;
   zIndex: number;
+  rotation: number;
+  isFlipped: boolean;
 };

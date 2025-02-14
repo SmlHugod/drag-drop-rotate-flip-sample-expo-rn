@@ -12,6 +12,9 @@ export default function App() {
   const { snapToGrid, gridLines } = useGridSnap();
   const addPiece = usePiecesStore((state) => state.addPiece);
 
+  // Utiliser le hook directement dans le composant
+  //const getGridState = usePiecesStore(selectGrid(width, height, CUBE_SIZE));
+
   useEffect(() => {
     PieceFactory.getAllPieces({
       x: snapToGrid(width / 4),
@@ -20,7 +23,6 @@ export default function App() {
   }, []);
 
   return (
-    //<ZoomableGrid />
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         {gridLines.map((line) => (
